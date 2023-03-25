@@ -14,19 +14,19 @@ class Champion {
   Spell wSpell;
   Spell eSpell;
   Spell rSpell;
-  Spell passive;
+  Passive passive;
 
-  Champion(
-    this.name,
-    this.title,
-    this.stats,
-    this.skins,
-    this.qSpell,
-    this.wSpell,
-    this.eSpell,
-    this.rSpell,
-    this.passive,
-  ) {
+  Champion({
+    required this.name,
+    required this.title,
+    required this.stats,
+    required this.skins,
+    required this.qSpell,
+    required this.wSpell,
+    required this.eSpell,
+    required this.rSpell,
+    required this.passive,
+  }) {
     splashImage =
         "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg";
     squareImage =

@@ -2,14 +2,14 @@ class ChampionStats {
   int hp;
   int hpLvl;
   int mana;
-  int manaLvl;
+  double manaLvl;
   int movementSpeed;
   int armor;
   double armorLvl;
   int magicResistance;
   double magicResistanceLvl;
   int ad;
-  int adLvl;
+  double adLvl;
   double attackSpeed;
   double attackSpeedLvl;
   int attackRange;

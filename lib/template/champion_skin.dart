@@ -4,7 +4,8 @@ class ChampionSkin {
   String championName;
   String? splashImage;
 
-  ChampionSkin(this.id, this.name, this.championName) {
+  ChampionSkin(
+      {required this.id, required this.name, required this.championName}) {
     splashImage =
         "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championName}_$id.jpg";
   }
