@@ -4,28 +4,7 @@ import 'package:lol_champ_stats/template/champion.dart';
 import 'package:lol_champ_stats/widget/champion_light.dart';
 
 void main() async {
-  List<String> championNameList = await JsonService.getListeChampion();
-  List<Champion> championDetailList = [];
-
-  championNameList.forEach((champion) async {
-    var champDetail = await JsonService.getChampionData(champion);
-    championDetailList.add(champDetail);
-  });
-
   runApp(const MyApp());
-}
-
-Future<List> listeChampion() async {
-  List<String> championNameList = await JsonService.getListeChampion();
-  List<Champion> championDetailList = [];
-  print("Ode aux pastèques");
-
-  championNameList.forEach((champion) async {
-    var champDetail = await JsonService.getChampionData(champion);
-    championDetailList.add(champDetail);
-  });
-
-  return championDetailList;
 }
 
 class MyApp extends StatelessWidget {
@@ -35,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'LoL Champions Stats',
       theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'FrizQuadrata'),
       home: const MyHomePage(title: ''),
     );
@@ -52,36 +31,59 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const test_color = Color(0xff23364C);
+  static const bgColor = Color(0xff242424);
+  static const appbarBgColor = Color(0xff23364C);
+  static const secondaryColor = Color(0xffC4943D);
+
+  late Future<List<Widget>> _myList;
+
+  Future<List<Widget>> _listeChampion() async {
+    List<String> championNameList = await JsonService.getListeChampion();
+    List<Champion> championDetailList = [];
+    List<Widget> championWidget = [];
+
+    championNameList.forEach((champion) async {
+      var champDetail = await JsonService.getChampionData(champion);
+      championDetailList.add(champDetail);
+      championWidget.add(ChampionLight(champion: champDetail));
+    });
+
+    return championWidget;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _myList = _listeChampion();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0xff242424),
+        backgroundColor: bgColor,
         appBar: AppBar(
-            elevation: 0,
-            backgroundColor: const Color(0xff23364C),
+            backgroundColor: appbarBgColor,
             title: TextField(
-              style: const TextStyle(fontSize: 20.0, color: Color(0xffC4943D)),
+              style: const TextStyle(fontSize: 20.0, color: secondaryColor),
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50.0),
                   borderSide:
-                      const BorderSide(color: Color(0xffC4943D), width: 2.0),
+                      const BorderSide(color: secondaryColor, width: 2.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50.0),
                   borderSide:
-                      const BorderSide(color: Color(0xffC4943D), width: 2.0),
+                      const BorderSide(color: secondaryColor, width: 2.0),
                 ),
                 hintText: "Search a champion",
-                hintStyle: const TextStyle(color: Color(0xffC4943D)),
+                hintStyle: const TextStyle(color: secondaryColor),
                 filled: false,
-                suffixIcon: const Icon(Icons.search, color: Color(0xffC4943D)),
+                suffixIcon: const Icon(Icons.search, color: secondaryColor),
               ),
             )),
         body: FutureBuilder(
-            future: listeChampion(),
+            future: _myList,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Container(
@@ -91,11 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               } else {
-                return ListView.builder(
-                    itemCount: snapshot.data?.length,
-                    itemBuilder: (context, index) {
-                      return ChampionLight(champion: snapshot.data?[index]);
-                    });
+                return ListView(children: snapshot.data!);
               }
             }));
   }

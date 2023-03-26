@@ -79,26 +79,38 @@ class JsonService {
         armorLvl: jsonData['data']['$name']['stats']['armorperlevel'],
         magicResistance: jsonData['data']['$name']['stats']['spellblock'],
         magicResistanceLvl: jsonData['data']['$name']['stats']
-        ['spellblockperlevel'],
+            ['spellblockperlevel'],
         ad: jsonData['data']['$name']['stats']['attackdamage'],
         adLvl: jsonData['data']['$name']['stats']['attackdamageperlevel'],
         attackSpeed: jsonData['data']['$name']['stats']['attackspeed'],
         attackSpeedLvl: jsonData['data']['$name']['stats']
-        ['attackspeedperlevel'],
+            ['attackspeedperlevel'],
         attackRange: jsonData['data']['$name']['stats']['attackrange']);
 
     List<ChampionSkin>? skins = [];
 
     jsonData['data']['$name']['skins'].forEach((skin) {
       ChampionSkin champSkin =
-      ChampionSkin(id: skin['num'], name: skin['name'], championName: name);
+          ChampionSkin(id: skin['num'], name: skin['name'], championName: name);
       skins.add(champSkin);
     });
 
+    String tags = "";
+
+    jsonData['data']['$name']['tags'].forEach((tag) {
+      if (tags.isNotEmpty) {
+        tags += ", " + tag;
+      } else {
+        tags += tag;
+      }
+    });
+
     Champion champ = Champion(
-      name: jsonData['data']['$name']["id"],
+      id: jsonData['data']['$name']["id"],
+      name: jsonData['data']['$name']["name"],
       title: jsonData['data']['$name']["title"],
       stats: stats,
+      tags: tags,
       skins: skins,
       qSpell: qSpell,
       wSpell: wSpell,

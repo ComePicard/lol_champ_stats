@@ -15,7 +15,7 @@ class Spell {
       required this.cooldown,
       required this.manaCost}) {
     imageUrl =
-        "https://ddragon.leagueoflegends.com/cdn/13.5.1/img/spell/$idSpell.png";
+        "https://ddragon.leagueoflegends.com/cdn/13.6.1/img/spell/$idSpell.png";
   }
 }
 
@@ -28,6 +28,6 @@ class Passive {
   Passive(
       {required this.idPassive, required this.nom, required this.description}) {
     imageUrl =
-        "https://ddragon.leagueoflegends.com/cdn/13.5.1/img/passive/$idPassive.png";
+        "https://ddragon.leagueoflegends.com/cdn/13.6.1/img/passive/$idPassive";
   }
 }

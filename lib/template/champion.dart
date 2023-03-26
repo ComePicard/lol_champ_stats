@@ -4,9 +4,11 @@ import 'package:lol_champ_stats/template/spell.dart';
 import 'champion_skin.dart';
 
 class Champion {
+  String id;
   String name;
   String title;
   ChampionStats stats;
+  String tags;
   String? squareImage;
   String? splashImage;
   List<ChampionSkin> skins;
@@ -17,9 +19,11 @@ class Champion {
   Passive passive;
 
   Champion({
+    required this.id,
     required this.name,
     required this.title,
     required this.stats,
+    required this.tags,
     required this.skins,
     required this.qSpell,
     required this.wSpell,
@@ -28,8 +32,8 @@ class Champion {
     required this.passive,
   }) {
     splashImage =
-        "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${name}_0.jpg";
+        "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${id}_0.jpg";
     squareImage =
-        "https://ddragon.leagueoflegends.com/cdn/13.5.1/img/champion/$name.png";
+        "https://ddragon.leagueoflegends.com/cdn/13.6.1/img/champion/$id.png";
   }
 }
