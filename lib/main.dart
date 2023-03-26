@@ -1,14 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:lol_champ_stats/services/json_service.dart';
+import 'package:lol_champ_stats/template/champion.dart';
+import 'package:lol_champ_stats/widget/champion_light.dart';
 
 void main() async {
-  List<String> championList = await JsonService.getListeChampion();
+  List<String> championNameList = await JsonService.getListeChampion();
+  List<Champion> championDetailList = [];
 
-  championList.forEach((champion) async {
-    await JsonService.getChampionData(champion);
+  championNameList.forEach((champion) async {
+    var champDetail = await JsonService.getChampionData(champion);
+    championDetailList.add(champDetail);
   });
 
   runApp(const MyApp());
+}
+
+Future<List> listeChampion() async {
+  List<String> championNameList = await JsonService.getListeChampion();
+  List<Champion> championDetailList = [];
+  print("Ode aux pastèques");
+
+  championNameList.forEach((champion) async {
+    var champDetail = await JsonService.getChampionData(champion);
+    championDetailList.add(champDetail);
+  });
+
+  return championDetailList;
 }
 
 class MyApp extends StatelessWidget {
@@ -63,41 +80,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 suffixIcon: const Icon(Icons.search, color: Color(0xffC4943D)),
               ),
             )),
-        body: ListView(children: <Widget>[
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.ideographic,
-                children: const <Widget>[
-                  Padding(
-                    padding: (EdgeInsets.only(left: 15, bottom: 8, top: 8)),
-                    child: Text(
-                      "Aatrox",
-                      style: TextStyle(color: Colors.white, fontSize: 24),
-                    ),
-                  ),
-                  Padding(
-                    padding: (EdgeInsets.only(left: 15, bottom: 8, top: 8)),
-                    child: Text(
-                      "The Darkin Blade",
-                      style: TextStyle(color: Color(0xffC4943D), fontSize: 18),
-                    ),
-                  ),
-                ]),
-            Expanded(child: Container()),
-            const Padding(
-                padding: (EdgeInsets.only(right: 15, bottom: 8, top: 8)),
-                child: Image(
-                    image: AssetImage('assets/aatrox.png'),
-                    width: 90,
-                    height: 90))
-          ]
-              // floatingActionButton: FloatingActionButton(
-              //   onPressed: ,
-              //   tooltip: 'Increment',
-              //   child: const Icon(Icons.add),
-              // ),
-              )
-        ]));
+        body: FutureBuilder(
+            future: listeChampion(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Container(
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator());
+              }
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              } else {
+                return ListView.builder(
+                    itemCount: snapshot.data?.length,
+                    itemBuilder: (context, index) {
+                      return ChampionLight(champion: snapshot.data?[index]);
+                    });
+              }
+            }));
   }
 }
