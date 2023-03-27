@@ -12,7 +12,6 @@ class SpellDetail extends StatefulWidget {
 }
 
 class _SpellDetailState extends State<SpellDetail> {
-  static const bgColor = Color(0xff242424);
   static const secondaryBgColor = Color(0xff23364C);
   static const secondaryColor = Color(0xffC4943D);
 
@@ -21,7 +20,7 @@ class _SpellDetailState extends State<SpellDetail> {
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
-        side: BorderSide(color: secondaryColor, width: 2.0),
+        side: const BorderSide(color: secondaryColor, width: 2.0),
       ),
       backgroundColor: secondaryBgColor,
       title: Row(
@@ -30,10 +29,14 @@ class _SpellDetailState extends State<SpellDetail> {
             padding: const EdgeInsets.only(right: 20),
             child: Image.network(widget.spell.imageUrl!, width: 50),
           ),
-          Text(
-            widget.spell.nom,
-            style: const TextStyle(color: Colors.white),
-          ),
+          SizedBox(
+              width: 150,
+              child: Text(
+                softWrap: true,
+                maxLines: 2,
+                widget.spell.nom,
+                style: const TextStyle(color: Colors.white),
+              )),
         ],
       ),
       content: SizedBox(
@@ -47,13 +50,31 @@ class _SpellDetailState extends State<SpellDetail> {
                     color: secondaryColor,
                     thickness: 1,
                   )),
-              Row(children: [
+              Column(children: [
                 Padding(
                     padding: const EdgeInsets.only(top: 15),
                     child: Row(
                       children: [
                         Image.asset('Cooldown_icon.png'),
-                        Text(widget.spell.cooldown)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(widget.spell.cooldown,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 16)),
+                        )
+                      ],
+                    )),
+                Padding(
+                    padding: const EdgeInsets.only(top: 15),
+                    child: Row(
+                      children: [
+                        Image.asset('Mana_icon.png'),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Text(widget.spell.manaCost,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 16)),
+                        )
                       ],
                     ))
               ]),

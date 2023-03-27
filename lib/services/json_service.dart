@@ -33,13 +33,23 @@ class JsonService {
 
     String cdSpell = "(";
     jsonData['data']['$name']['spells'][0]['cooldown'].forEach((cd) {
-      if (cd.length > 1) {
+      if (cdSpell.length > 1) {
         cdSpell += ", $cd";
       } else {
-        cdSpell += cd;
+        cdSpell += cd.toString();
       }
     });
     cdSpell += ")";
+
+    String manaSpell = "(";
+    jsonData['data']['$name']['spells'][0]['cost'].forEach((mana) {
+      if (manaSpell.length > 1) {
+        manaSpell += ", $mana";
+      } else {
+        manaSpell += mana.toString();
+      }
+    });
+    manaSpell += ")";
 
     Spell qSpell = Spell(
         idSpell: jsonData['data']['$name']['spells'][0]['id'],
@@ -47,17 +57,27 @@ class JsonService {
         spellKey: "Q",
         description: jsonData['data']['$name']['spells'][0]['description'],
         cooldown: cdSpell,
-        manaCost: jsonData['data']['$name']['spells'][0]['cost']);
+        manaCost: manaSpell);
 
     cdSpell = "(";
     jsonData['data']['$name']['spells'][1]['cooldown'].forEach((cd) {
-      if (cd.length > 1) {
+      if (cdSpell.length > 1) {
         cdSpell += ", $cd";
       } else {
-        cdSpell += cd;
+        cdSpell += cd.toString();
       }
     });
     cdSpell += ")";
+
+    manaSpell = "(";
+    jsonData['data']['$name']['spells'][1]['cost'].forEach((mana) {
+      if (manaSpell.length > 1) {
+        manaSpell += ", $mana";
+      } else {
+        manaSpell += mana.toString();
+      }
+    });
+    manaSpell += ")";
 
     Spell wSpell = Spell(
         idSpell: jsonData['data']['$name']['spells'][1]['id'],
@@ -65,17 +85,27 @@ class JsonService {
         spellKey: "W",
         description: jsonData['data']['$name']['spells'][1]['description'],
         cooldown: cdSpell,
-        manaCost: jsonData['data']['$name']['spells'][1]['cost']);
+        manaCost: manaSpell);
 
     cdSpell = "(";
-    jsonData['data']['$name']['spells'][1]['cooldown'].forEach((cd) {
-      if (cd.length > 1) {
+    jsonData['data']['$name']['spells'][2]['cooldown'].forEach((cd) {
+      if (cdSpell.length > 1) {
         cdSpell += ", $cd";
       } else {
-        cdSpell += cd;
+        cdSpell += cd.toString();
       }
     });
     cdSpell += ")";
+
+    manaSpell = "(";
+    jsonData['data']['$name']['spells'][2]['cost'].forEach((mana) {
+      if (manaSpell.length > 1) {
+        manaSpell += ", $mana";
+      } else {
+        manaSpell += mana.toString();
+      }
+    });
+    manaSpell += ")";
 
     Spell eSpell = Spell(
         idSpell: jsonData['data']['$name']['spells'][2]['id'],
@@ -83,17 +113,27 @@ class JsonService {
         spellKey: "E",
         description: jsonData['data']['$name']['spells'][2]['description'],
         cooldown: cdSpell,
-        manaCost: jsonData['data']['$name']['spells'][2]['cost']);
+        manaCost: manaSpell);
 
     cdSpell = "(";
-    jsonData['data']['$name']['spells'][1]['cooldown'].forEach((cd) {
-      if (cd.length > 1) {
+    jsonData['data']['$name']['spells'][3]['cooldown'].forEach((cd) {
+      if (cdSpell.length > 1) {
         cdSpell += ", $cd";
       } else {
-        cdSpell += cd;
+        cdSpell += cd.toString();
       }
     });
     cdSpell += ")";
+
+    manaSpell = "(";
+    jsonData['data']['$name']['spells'][3]['cost'].forEach((mana) {
+      if (manaSpell.length > 1) {
+        manaSpell += ", $mana";
+      } else {
+        manaSpell += mana.toString();
+      }
+    });
+    manaSpell += ")";
 
     Spell rSpell = Spell(
         idSpell: jsonData['data']['$name']['spells'][3]['id'],
@@ -101,7 +141,7 @@ class JsonService {
         spellKey: "R",
         description: jsonData['data']['$name']['spells'][3]['description'],
         cooldown: cdSpell,
-        manaCost: jsonData['data']['$name']['spells'][3]['cost']);
+        manaCost: manaSpell);
 
     Passive passive = Passive(
       idPassive: jsonData['data']['$name']['passive']['image']['full'],
@@ -113,18 +153,21 @@ class JsonService {
         hp: jsonData['data']['$name']['stats']['hp'],
         hpLvl: jsonData['data']['$name']['stats']['hpperlevel'],
         mana: jsonData['data']['$name']['stats']['mp'],
-        manaLvl: jsonData['data']['$name']['stats']['mpperlevel'],
+        manaLvl: jsonData['data']['$name']['stats']['mpperlevel'].toDouble(),
         movementSpeed: jsonData['data']['$name']['stats']['movespeed'],
         armor: jsonData['data']['$name']['stats']['armor'],
-        armorLvl: jsonData['data']['$name']['stats']['armorperlevel'],
+        armorLvl:
+            jsonData['data']['$name']['stats']['armorperlevel'].toDouble(),
         magicResistance: jsonData['data']['$name']['stats']['spellblock'],
-        magicResistanceLvl: jsonData['data']['$name']['stats']
-            ['spellblockperlevel'],
+        magicResistanceLvl:
+            jsonData['data']['$name']['stats']['spellblockperlevel'].toDouble(),
         ad: jsonData['data']['$name']['stats']['attackdamage'],
-        adLvl: jsonData['data']['$name']['stats']['attackdamageperlevel'],
+        adLvl: jsonData['data']['$name']['stats']['attackdamageperlevel']
+            .toDouble(),
         attackSpeed: jsonData['data']['$name']['stats']['attackspeed'],
         attackSpeedLvl: jsonData['data']['$name']['stats']
-            ['attackspeedperlevel'],
+                ['attackspeedperlevel']
+            .toDouble(),
         attackRange: jsonData['data']['$name']['stats']['attackrange']);
 
     List<ChampionSkin>? skins = [];

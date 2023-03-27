@@ -10,8 +10,6 @@ class ChampList extends StatefulWidget {
 }
 
 class _ChampList extends State<ChampList> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,25 +17,29 @@ class _ChampList extends State<ChampList> {
         appBar: AppBar(
             elevation: 0,
             backgroundColor: const Color(0xff23364C),
-            title: TextField(
-              style: const TextStyle(fontSize: 20.0, color: Color(0xffC4943D)),
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                  borderSide:
-                  const BorderSide(color: Color(0xffC4943D), width: 2.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(50.0),
-                  borderSide:
-                  const BorderSide(color: Color(0xffC4943D), width: 2.0),
-                ),
-                hintText: "Search a champion",
-                hintStyle: const TextStyle(color: Color(0xffC4943D)),
-                filled: false,
-                suffixIcon: const Icon(Icons.search, color: Color(0xffC4943D)),
-              ),
-            )),
+            title: Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: TextField(
+                  style:
+                      const TextStyle(fontSize: 20.0, color: Color(0xffC4943D)),
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xffC4943D), width: 2.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                      borderSide: const BorderSide(
+                          color: Color(0xffC4943D), width: 2.0),
+                    ),
+                    hintText: "Search a champion",
+                    hintStyle: const TextStyle(color: Color(0xffC4943D)),
+                    filled: false,
+                    suffixIcon:
+                        const Icon(Icons.search, color: Color(0xffC4943D)),
+                  ),
+                ))),
         body: ListView(children: <Widget>[
           Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
             Column(
@@ -67,12 +69,12 @@ class _ChampList extends State<ChampList> {
                     width: 90,
                     height: 90))
           ]
-            // floatingActionButton: FloatingActionButton(
-            //   onPressed: ,
-            //   tooltip: 'Increment',
-            //   child: const Icon(Icons.add),
-            // ),
-          )
+              // floatingActionButton: FloatingActionButton(
+              //   onPressed: ,
+              //   tooltip: 'Increment',
+              //   child: const Icon(Icons.add),
+              // ),
+              )
         ]));
   }
 }

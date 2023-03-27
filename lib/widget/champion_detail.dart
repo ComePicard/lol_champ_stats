@@ -1,4 +1,6 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:lol_champ_stats/widget/passive_detail.dart';
 import 'package:lol_champ_stats/widget/spell_detail.dart';
 
 import '../template/champion.dart';
@@ -26,11 +28,22 @@ class _ChampionDetailState extends State<ChampionDetail> {
             centerTitle: true,
             title: Text(widget.champion.name,
                 style: const TextStyle(fontSize: 28))),
-        body: Column(children: [
+        body: SingleChildScrollView(
+            child: Column(children: [
           Padding(
               padding: (const EdgeInsets.only(top: 30)),
-              child: Image.network(widget.champion.splashImage!,
-                  fit: BoxFit.cover, height: 250)),
+              child: CarouselSlider(
+                options: CarouselOptions(height: 525),
+                items: widget.champion.skins
+                    .map((item) => Container(
+                          child: Center(
+                              child: Image.network(item.splashImage!,
+                                  fit: BoxFit.cover)),
+                        ))
+                    .toList(),
+              )),
+          // Image.network(widget.champion.splashImage!,
+          //     fit: BoxFit.cover, height: 250)),
           Padding(
               padding: (const EdgeInsets.only(top: 20, left: 35)),
               child: Row(children: [
@@ -59,18 +72,11 @@ class _ChampionDetailState extends State<ChampionDetail> {
                       height: 150,
                       child: Column(
                         children: [
-                          InkWell(
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => SpellDetail(
-                                        spell: widget.champion.qSpell));
-                              },
-                              child: const Padding(
-                                  padding: EdgeInsets.only(top: 10, bottom: 5),
-                                  child: Text("Sorts",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 18)))),
+                          const Padding(
+                              padding: EdgeInsets.only(top: 10, bottom: 5),
+                              child: Text("Sorts",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18))),
                           const FractionallySizedBox(
                               widthFactor: 0.8,
                               child: Divider(
@@ -84,34 +90,78 @@ class _ChampionDetailState extends State<ChampionDetail> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                    Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 15),
+                                    InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) =>
+                                                  PassiveDetail(
+                                                      passive: widget
+                                                          .champion.passive));
+                                        },
+                                        child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 15),
+                                            child: Image.network(
+                                              widget.champion.passive.imageUrl!,
+                                              width: 50,
+                                            ))),
+                                    InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => SpellDetail(
+                                                  spell:
+                                                      widget.champion.qSpell));
+                                        },
+                                        child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 15),
+                                            child: Image.network(
+                                                widget
+                                                    .champion.qSpell.imageUrl!,
+                                                width: 50))),
+                                    InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => SpellDetail(
+                                                  spell:
+                                                      widget.champion.wSpell));
+                                        },
                                         child: Image.network(
-                                          widget.champion.passive.imageUrl!,
-                                          width: 50,
-                                        )),
-                                    Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 15),
-                                        child: Image.network(
-                                            widget.champion.qSpell.imageUrl!,
+                                            widget.champion.wSpell.imageUrl!,
                                             width: 50)),
-                                    Image.network(
-                                        widget.champion.wSpell.imageUrl!,
-                                        width: 50),
-                                    Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 15),
-                                        child: Image.network(
-                                            widget.champion.eSpell.imageUrl!,
-                                            width: 50)),
-                                    Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 15),
-                                        child: Image.network(
-                                            widget.champion.rSpell.imageUrl!,
-                                            width: 50)),
+                                    InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => SpellDetail(
+                                                  spell:
+                                                      widget.champion.eSpell));
+                                        },
+                                        child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 15),
+                                            child: Image.network(
+                                                widget
+                                                    .champion.eSpell.imageUrl!,
+                                                width: 50))),
+                                    InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) => SpellDetail(
+                                                  spell:
+                                                      widget.champion.rSpell));
+                                        },
+                                        child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 15),
+                                            child: Image.network(
+                                                widget
+                                                    .champion.rSpell.imageUrl!,
+                                                width: 50))),
                                   ])))
                         ],
                       )))),
@@ -223,10 +273,11 @@ class _ChampionDetailState extends State<ChampionDetail> {
                                 child: Row(children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 15),
-                                    child: Image.asset("Attack_speed_icon.png"),
+                                    child: Image.asset("Range_icon.png"),
                                   ),
                                   Text(
-                                      "${widget.champion.stats.attackSpeed} (+${widget.champion.stats.attackSpeedLvl}%)",
+                                      widget.champion.stats.attackRange
+                                          .toString(),
                                       style: const TextStyle(
                                           color: Colors.white, fontSize: 18))
                                 ])),
@@ -238,17 +289,16 @@ class _ChampionDetailState extends State<ChampionDetail> {
                                 child: Row(children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 15),
-                                    child: Image.asset("Range_icon.png"),
+                                    child: Image.asset("Attack_speed_icon.png"),
                                   ),
                                   Text(
-                                      widget.champion.stats.attackRange
-                                          .toString(),
+                                      "${widget.champion.stats.attackSpeed} (+${widget.champion.stats.attackSpeedLvl}%)",
                                       style: const TextStyle(
                                           color: Colors.white, fontSize: 18))
                                 ])),
                           ])
                         ],
                       ))))
-        ]));
+        ])));
   }
 }

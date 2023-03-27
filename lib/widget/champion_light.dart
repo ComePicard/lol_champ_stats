@@ -12,6 +12,14 @@ class ChampionLight extends StatefulWidget {
   State<ChampionLight> createState() => _ChampionLightState();
 }
 
+String truncate(String input) {
+  if (input.length > 22) {
+    input = input.substring(0, 22);
+    input += "...";
+  }
+  return input;
+}
+
 class _ChampionLightState extends State<ChampionLight> {
   @override
   Widget build(BuildContext context) {
@@ -49,7 +57,7 @@ class _ChampionLightState extends State<ChampionLight> {
                                 padding: (const EdgeInsets.only(
                                     left: 15, bottom: 8, top: 8)),
                                 child: Text(
-                                  widget.champion.title,
+                                  truncate(widget.champion.title),
                                   style: const TextStyle(
                                       color: Color(0xffC4943D), fontSize: 18),
                                 ),

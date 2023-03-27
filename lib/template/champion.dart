@@ -32,7 +32,7 @@ class Champion {
     required this.passive,
   }) {
     splashImage =
-        "http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${id}_0.jpg";
+        "http://ddragon.leagueoflegends.com/cdn/img/champion/loading/${id}_0.jpg";
     squareImage =
         "https://ddragon.leagueoflegends.com/cdn/13.6.1/img/champion/$id.png";
   }
