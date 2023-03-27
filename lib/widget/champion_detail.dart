@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lol_champ_stats/widget/spell_detail.dart';
 
 import '../template/champion.dart';
 
@@ -58,11 +59,18 @@ class _ChampionDetailState extends State<ChampionDetail> {
                       height: 150,
                       child: Column(
                         children: [
-                          const Padding(
-                              padding: EdgeInsets.only(top: 10, bottom: 5),
-                              child: Text("Sorts",
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18))),
+                          InkWell(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) => SpellDetail(
+                                        spell: widget.champion.qSpell));
+                              },
+                              child: const Padding(
+                                  padding: EdgeInsets.only(top: 10, bottom: 5),
+                                  child: Text("Sorts",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 18)))),
                           const FractionallySizedBox(
                               widthFactor: 0.8,
                               child: Divider(
@@ -122,18 +130,123 @@ class _ChampionDetailState extends State<ChampionDetail> {
                       ),
                       height: 300,
                       child: Column(
-                        children: const [
-                          Padding(
+                        children: [
+                          const Padding(
                               padding: EdgeInsets.only(top: 10, bottom: 5),
                               child: Text("Stats",
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 18))),
-                          FractionallySizedBox(
+                          const FractionallySizedBox(
                               widthFactor: 0.8,
                               child: Divider(
                                 color: secondaryColor,
                                 thickness: 1,
                               )),
+                          Row(children: [
+                            Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 30, top: 30),
+                                child: Row(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Image.asset("Health_icon.png"),
+                                  ),
+                                  Text(
+                                      "${widget.champion.stats.hp} (+${widget.champion.stats.hpLvl})",
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 18))
+                                ])),
+                            Expanded(child: Container()),
+                            Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 30, top: 30),
+                                child: Row(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Image.asset("Mana_icon.png"),
+                                  ),
+                                  Text(
+                                      "${widget.champion.stats.mana} (+${widget.champion.stats.manaLvl})",
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 18))
+                                ])),
+                          ]),
+                          Row(children: [
+                            Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 30, top: 30),
+                                child: Row(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Image.asset("Armor_icon.png"),
+                                  ),
+                                  Text(
+                                      "${widget.champion.stats.armor} (+${widget.champion.stats.armorLvl})",
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 18))
+                                ])),
+                            Expanded(child: Container()),
+                            Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 30, top: 30),
+                                child: Row(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Image.asset(
+                                        "Magic_resistance_icon.png"),
+                                  ),
+                                  Text(
+                                      "${widget.champion.stats.magicResistance} (+${widget.champion.stats.magicResistanceLvl})",
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 18))
+                                ])),
+                          ]),
+                          Row(children: [
+                            Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 30, top: 30),
+                                child: Row(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child:
+                                        Image.asset("Attack_damage_icon.png"),
+                                  ),
+                                  Text(
+                                      "${widget.champion.stats.ad} (+${widget.champion.stats.adLvl})",
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 18))
+                                ])),
+                            Expanded(child: Container()),
+                            Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 30, top: 30),
+                                child: Row(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Image.asset("Attack_speed_icon.png"),
+                                  ),
+                                  Text(
+                                      "${widget.champion.stats.attackSpeed} (+${widget.champion.stats.attackSpeedLvl}%)",
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 18))
+                                ])),
+                          ]),
+                          Row(children: [
+                            Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 30, top: 30),
+                                child: Row(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: Image.asset("Range_icon.png"),
+                                  ),
+                                  Text(
+                                      widget.champion.stats.attackRange
+                                          .toString(),
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 18))
+                                ])),
+                          ])
                         ],
                       ))))
         ]));

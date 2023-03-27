@@ -4,8 +4,8 @@ class Spell {
   String spellKey; //Q, W, E, R
   String description;
   String? imageUrl;
-  List<dynamic>? cooldown;
-  List<dynamic>? manaCost;
+  String cooldown;
+  String manaCost;
 
   Spell(
       {required this.idSpell,

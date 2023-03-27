@@ -31,36 +31,76 @@ class JsonService {
         headers: {'Access-Cross-Allow-Origin': '*'});
     final jsonData = jsonDecode(response.body);
 
+    String cdSpell = "(";
+    jsonData['data']['$name']['spells'][0]['cooldown'].forEach((cd) {
+      if (cd.length > 1) {
+        cdSpell += ", $cd";
+      } else {
+        cdSpell += cd;
+      }
+    });
+    cdSpell += ")";
+
     Spell qSpell = Spell(
         idSpell: jsonData['data']['$name']['spells'][0]['id'],
         nom: jsonData['data']['$name']['spells'][0]['name'],
         spellKey: "Q",
         description: jsonData['data']['$name']['spells'][0]['description'],
-        cooldown: jsonData['data']['$name']['spells'][0]['cooldown'],
+        cooldown: cdSpell,
         manaCost: jsonData['data']['$name']['spells'][0]['cost']);
+
+    cdSpell = "(";
+    jsonData['data']['$name']['spells'][1]['cooldown'].forEach((cd) {
+      if (cd.length > 1) {
+        cdSpell += ", $cd";
+      } else {
+        cdSpell += cd;
+      }
+    });
+    cdSpell += ")";
 
     Spell wSpell = Spell(
         idSpell: jsonData['data']['$name']['spells'][1]['id'],
         nom: jsonData['data']['$name']['spells'][1]['name'],
         spellKey: "W",
         description: jsonData['data']['$name']['spells'][1]['description'],
-        cooldown: jsonData['data']['$name']['spells'][1]['cooldown'],
+        cooldown: cdSpell,
         manaCost: jsonData['data']['$name']['spells'][1]['cost']);
+
+    cdSpell = "(";
+    jsonData['data']['$name']['spells'][1]['cooldown'].forEach((cd) {
+      if (cd.length > 1) {
+        cdSpell += ", $cd";
+      } else {
+        cdSpell += cd;
+      }
+    });
+    cdSpell += ")";
 
     Spell eSpell = Spell(
         idSpell: jsonData['data']['$name']['spells'][2]['id'],
         nom: jsonData['data']['$name']['spells'][2]['name'],
         spellKey: "E",
         description: jsonData['data']['$name']['spells'][2]['description'],
-        cooldown: jsonData['data']['$name']['spells'][2]['cooldown'],
+        cooldown: cdSpell,
         manaCost: jsonData['data']['$name']['spells'][2]['cost']);
+
+    cdSpell = "(";
+    jsonData['data']['$name']['spells'][1]['cooldown'].forEach((cd) {
+      if (cd.length > 1) {
+        cdSpell += ", $cd";
+      } else {
+        cdSpell += cd;
+      }
+    });
+    cdSpell += ")";
 
     Spell rSpell = Spell(
         idSpell: jsonData['data']['$name']['spells'][3]['id'],
         nom: jsonData['data']['$name']['spells'][3]['name'],
         spellKey: "R",
         description: jsonData['data']['$name']['spells'][3]['description'],
-        cooldown: jsonData['data']['$name']['spells'][3]['cooldown'],
+        cooldown: cdSpell,
         manaCost: jsonData['data']['$name']['spells'][3]['cost']);
 
     Passive passive = Passive(
@@ -99,7 +139,7 @@ class JsonService {
 
     jsonData['data']['$name']['tags'].forEach((tag) {
       if (tags.isNotEmpty) {
-        tags += ", " + tag;
+        tags += ", $tag";
       } else {
         tags += tag;
       }
